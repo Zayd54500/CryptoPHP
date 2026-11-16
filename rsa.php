@@ -17,5 +17,24 @@
         return $result;
     }
 
+    function gcd($a, $b) {
+        $r = 1;
+
+        if ($a > $b) {
+            $x = $a;
+            $y = $b;
+        } else {
+            $x = $b;
+            $y = $a;
+        }
+
+        while ($r > 0) {
+            $r = $x % $y;
+            $x = $y;
+            $y = $r;
+        }
+
+        return $x;
+    }
 
     echo expmod(2, 30, 9); // 1
