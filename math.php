@@ -27,7 +27,7 @@ function RSADecrypt($y, $e, $p, $q) {
     $phi = ($p - 1) * ($q - 1);
 
     if (gcd($e, $phi) == 1) {
-        $d = inversemod($e, $phi);
+        $d = inversermod($e, $phi);
         if ($d != -1) {
             return expmod($y, $d, $p * $q);
         }

@@ -17,7 +17,12 @@
         return $result;
     }
 
-    function gcd($a, $b) {
+    /**
+     * Question 1.2
+     * @param mixed $a
+     * @param mixed $b
+     */
+    function gcd($a, $b) : int{
         $r = 1;
 
         if ($a > $b) {
@@ -38,32 +43,61 @@
     }
 
 
-function invesermod($e, $f) { 
-    $r0 = $e;
-    $u0 = 1;
+    function inversermod($e, $f) { 
+        $r0 = $e;
+        $u0 = 1;
 
-    $r1 = $f;
-    $u1 = 0;
+        $r1 = $f;
+        $u1 = 0;
 
-    while ($r1 > 0) { 
-        $q = intdiv($r0, $r1);
+        while ($r1 > 0) { 
+            $q = intdiv($r0, $r1);
 
-        $nouveauReste = $r0 - $q * $r1;
-        $nouveauU = $u0 - $q * $u1;
+            $nouveauReste = $r0 - $q * $r1;
+            $nouveauU = $u0 - $q * $u1;
 
-        $r0 = $r1;
-        $r1 = $nouveauReste;
-        
-        $u0 = $u1;
-        $u1 = $nouveauU;
+            $r0 = $r1;
+            $r1 = $nouveauReste;
+            
+            $u0 = $u1;
+            $u1 = $nouveauU;
+        }
+
+        if ($r0 !== 1) { 
+            echo "Erreur inverse innexistant";
+            return -1;
+        }
+
+        return (($u0 % $f) + $f) % $f;
     }
 
-    if ($r0 !== 1) { 
-        echo "Erreur inverse innexistant";
+
+    /**
+     * Question 1.4
+     * 
+     * @param mixed $x
+     * @param mixed $e
+     * @param mixed $n
+     * @return int
+     */
+    function RSAencrypt($x, $e, $n) : int {
+    return expmod($x, $e, $n);
+}
+
+    function RSADecrypt($y, $e, $p, $q) : int {
+        $phi = ($p - 1) * ($q - 1);
+
+        if (gcd($e, $phi) == 1) {
+            $d = inversermod($e, $phi);
+            if ($d != -1) {
+                return expmod($y, $d, $p * $q);
+            }
+        }
         return -1;
     }
 
-    return (($u0 % $f) + $f) % $f;
-}
-
-    echo expmod(2, 30, 9); // 1
+echo expmod(2, 30, 9); // 1
+echo "\n";
+echo RSAencrypt(3, 5, 85);    
+echo "\n";
+echo RSADecrypt(2, 5, 5, 17); 
