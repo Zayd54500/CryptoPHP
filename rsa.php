@@ -37,4 +37,33 @@
         return $x;
     }
 
+
+function invesermod($e, $f) { 
+    $r0 = $e;
+    $u0 = 1;
+
+    $r1 = $f;
+    $u1 = 0;
+
+    while ($r1 > 0) { 
+        $q = intdiv($r0, $r1);
+
+        $nouveauReste = $r0 - $q * $r1;
+        $nouveauU = $u0 - $q * $u1;
+
+        $r0 = $r1;
+        $r1 = $nouveauReste;
+        
+        $u0 = $u1;
+        $u1 = $nouveauU;
+    }
+
+    if ($r0 !== 1) { 
+        echo "Erreur inverse innexistant";
+        return -1;
+    }
+
+    return (($u0 % $f) + $f) % $f;
+}
+
     echo expmod(2, 30, 9); // 1
