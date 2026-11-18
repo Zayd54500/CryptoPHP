@@ -89,9 +89,7 @@
 
         if (gcd($e, $phi) == 1) {
             $d = inversermod($e, $phi);
-            if ($d != -1) {
-                return expmod($y, $d, $p * $q);
-            }
+            return expmod($y, $d, $p * $q);
         }
         return -1;
     }
