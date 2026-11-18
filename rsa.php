@@ -164,32 +164,65 @@ function millerRabin($n, $k): bool
     return true;
 }
 
-function premierAleatoire($min, $max): int { 
-    if ($min > $max || $max < 3) { 
+function premierAleatoire($min, $max): int
+{
+    if ($min > $max || $max < 3) {
         throw new InvalidArgumentException("Intervalle invalide");
     }
 
     $minImpair  = max(3, $min);
-    if ($minImpair % 2 == 0) { 
+    if ($minImpair % 2 == 0) {
         $minImpair++;
     }
 
     $maxImpair = $max;
-    if ($max % 2 == 0) { 
-        $maxImpair = $max -1;
+    if ($max % 2 == 0) {
+        $maxImpair = $max - 1;
     }
 
-    if ($minImpair > $maxImpair) { 
+    if ($minImpair > $maxImpair) {
         throw new InvalidArgumentException("Aucun entier impair dans l'intervalle");
     }
 
-    do { 
+    do {
         $p = random_int(0, intdiv($maxImpair - $minImpair, 2)) * 2 + $minImpair;
     } while (!millerRabin($p, 20));
 
     return $p;
 }
 
+function genererClesRSA($min, $max): array
+{
+    $p = premierAleatoire($min, $max);
+
+    do {
+        $q = premierAleatoire($min, $max);
+    } while ($q == $p);
+
+    $n = $p * $q;
+    $phi = ($p - 1) * ($q - 1);
+
+    $e = 65537;
+
+    if (gcd($e, $phi) != 1) {
+        $e = 3;
+
+        while (gcd($e, $phi) != 1) {
+            $e += 2;
+        }
+    }
+
+    $d = inversemod($e, $phi);
+
+    return [
+        "p" => $p,
+        "q" => $q,
+        "n" => $n,
+        "phi" => $phi,
+        "e" => $e,
+        "d" => $d
+    ];
+}
 
 
 
