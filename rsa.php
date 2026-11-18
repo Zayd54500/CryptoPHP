@@ -222,8 +222,8 @@ function genererClesRSA($min, $max): array
     ];
 }
 
-
-
+echo gcd(253, 17);
+echo "\n";
 echo expmod(2, 30, 9); // 1
 echo "\n";
 echo RSAencrypt(3, 5, 85);
