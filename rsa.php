@@ -18,11 +18,6 @@ function expmod($x, $e, $n): int
     return $result;
 }
 
-/**
- * Question 1.2
- * @param mixed $a
- * @param mixed $b
- */
 function gcd($a, $b): int
 {
     $r = 1;
@@ -75,14 +70,6 @@ function inversemod($e, $f)
 }
 
 
-/**
- * Question 1.4
- * 
- * @param mixed $x
- * @param mixed $e
- * @param mixed $n
- * @return int
- */
 function RSAencrypt($x, $e, $n): int
 {
     return expmod($x, $e, $n);
